@@ -65,8 +65,8 @@
             </form>
         </field>
     </record>
-    <record id="view_product_brand_list" model="ir.ui.view">
-        <field name="name">product.brand.list</field>
+    <record id="view_product_brand_tree" model="ir.ui.view">
+        <field name="name">product.brand.tree</field>
         <field name="model">product.brand</field>
         <field name="arch" type="xml">
             <list>
@@ -86,7 +86,7 @@
                 <field name="products_count" />
                 <field name="description" />
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_image">
                                 <img
@@ -147,7 +147,7 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_kanban_view" />
         <field name="arch" type="xml">
-            <xpath expr="//strong[hasclass('o_kanban_record_title')]" position="after">
+            <xpath expr="//field[@name='name']/.." position="after">
                 <div>
                     <a
                         t-if="record.product_brand_id"
@@ -165,32 +165,29 @@
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_kanban_view" />
         <field name="arch" type="xml">
-            <xpath
-                expr="//div[hasclass('oe_kanban_details')]//strong[1]"
-                position="after"
-            >
+            <xpath expr="//field[@name='name']/.." position="after">
                 <div>
                     <a t-if="record.product_brand_id" type="open">
-                        <field name="product_brand_id" />
+                        <field name="product_brand_id" widget="many2one" />
                     </a>
                 </div>
             </xpath>
         </field>
     </record>
-    <record id="view_product_template_list_brand" model="ir.ui.view">
-        <field name="name">product list view: add brand</field>
+    <record id="view_product_template_tree_brand" model="ir.ui.view">
+        <field name="name">product tree view: add brand</field>
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_list_view" />
+        <field name="inherit_id" ref="product.product_template_tree_view" />
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="product_brand_id" />
             </field>
         </field>
     </record>
-    <record id="view_product_variant_list_brand" model="ir.ui.view">
-        <field name="name">product variant list view: add brand</field>
+    <record id="view_product_variant_tree_brand" model="ir.ui.view">
+        <field name="name">product variant tree view: add brand</field>
         <field name="model">product.product</field>
-        <field name="inherit_id" ref="product.product_product_list_view" />
+        <field name="inherit_id" ref="product.product_product_tree_view" />
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="product_brand_id" />
