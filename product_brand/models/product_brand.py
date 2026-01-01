@@ -13,6 +13,7 @@ class ProductBrand(models.Model):
     _description = "Product Brand"
     _order = "name"
 
+    sequence = fields.Integer("Sequence", default=10, required=True)
     name = fields.Char("Brand Name", required=True)
     description = fields.Text(translate=True)
     partner_id = fields.Many2one(
